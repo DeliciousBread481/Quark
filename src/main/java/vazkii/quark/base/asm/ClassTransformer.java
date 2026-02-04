@@ -1158,13 +1158,23 @@ public class ClassTransformer implements IClassTransformer, Opcodes {
 
 		@Override
 		protected String getCommonSuperClass(String type1, String type2) {
+		
+		 
+            if (type1.contains("org/bukkit/craftbukkit") || type2.contains("org/bukkit/craftbukkit")) {
+                return "java/lang/Object";
+            }
+            
+            if (type1.equals("net/minecraft/util/math/Vec3i") || type2.equals("net/minecraft/util/math/Vec3i")) {
+                return "java/lang/Object";
+            }
+		    
 			Class<?> c, d;
 			ClassLoader classLoader = Launch.classLoader;
 			try {
 				c = Class.forName(type1.replace('/', '.'), false, classLoader);
 				d = Class.forName(type2.replace('/', '.'), false, classLoader);
 			} catch (Exception e) {
-				throw new RuntimeException(e.toString());
+				return "java/lang/Object";
 			}
 			if (c.isAssignableFrom(d)) {
 				return type1;
