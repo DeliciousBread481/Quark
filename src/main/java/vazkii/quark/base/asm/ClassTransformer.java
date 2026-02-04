@@ -1164,6 +1164,18 @@ public class ClassTransformer implements IClassTransformer, Opcodes {
                 return "java/lang/Object";
             }
             
+            if (type1.startsWith("net/minecraft/util/math/") || type2.startsWith("net/minecraft/util/math/")) {  
+                try {  
+                    Class<?> c = Class.forName(type1.replace('/', '.'), false, Launch.classLoader);  
+                    Class<?> d = Class.forName(type2.replace('/', '.'), false, Launch.classLoader);  
+                    if (c.isAssignableFrom(d)) return type1;  
+                    if (d.isAssignableFrom(c)) return type2;  
+                } catch (Exception e) {  
+                    return "java/lang/Object";  
+                }  
+                return "java/lang/Object";  
+            }
+            
             if (type1.equals("net/minecraft/util/math/Vec3i") || type2.equals("net/minecraft/util/math/Vec3i")) {
                 return "java/lang/Object";
             }
