@@ -1164,6 +1164,13 @@ public class ClassTransformer implements IClassTransformer, Opcodes {
                 return "java/lang/Object";
             }
             
+            if (type1.equals("net/minecraft/util/math/Vec3i") || type2.equals("net/minecraft/util/math/Vec3i") ||  
+                type1.equals("net/minecraft/util/math/BlockPos") || type2.equals("net/minecraft/util/math/BlockPos") ||  
+                type1.equals("net/minecraft/util/math/BlockPos$MutableBlockPos") || type2.equals("net/minecraft/util/math/BlockPos$MutableBlockPos") ||  
+                type1.equals("net/minecraft/util/math/BlockPos$PooledMutableBlockPos") || type2.equals("net/minecraft/util/math/BlockPos$PooledMutableBlockPos")) {  
+                return "java/lang/Object";  
+            }
+            
             if (type1.startsWith("net/minecraft/util/math/") || type2.startsWith("net/minecraft/util/math/")) {  
                 try {  
                     Class<?> c = Class.forName(type1.replace('/', '.'), false, Launch.classLoader);  
@@ -1174,10 +1181,6 @@ public class ClassTransformer implements IClassTransformer, Opcodes {
                     return "java/lang/Object";  
                 }  
                 return "java/lang/Object";  
-            }
-            
-            if (type1.equals("net/minecraft/util/math/Vec3i") || type2.equals("net/minecraft/util/math/Vec3i")) {
-                return "java/lang/Object";
             }
 		    
 			Class<?> c, d;
